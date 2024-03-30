@@ -1,7 +1,7 @@
-# Accelerator Programs Search
-This is a searchable UI for startup accelerator programs. The Techstars network has
-32k+ companies and 23k+ founders. It an untapped resource for early-stage startups
-looking for network related help.
+# Investor Search
+This is a searchable UI for startup investors. The Investor network has
+32k+ companies and 32k+ founders. It an untapped resource for early-stage startups
+looking for network-related help.
 
 - Find Funded startups in your space.
 - Find Partners who are upstream or downstream.

@@ -1,6 +1,5 @@
 import React from 'react';
 import algoliasearch from 'algoliasearch/lite';
-import headerImage from './assets/logo.png';
 import fallbackImage from './assets/no-logo.png';
 import GitHubButton from 'react-github-btn';
 
@@ -11,7 +10,8 @@ import {
   InstantSearch,
   Pagination,
   SearchBox,
-  RefinementList
+  RefinementList,
+  Stats
 } from 'react-instantsearch';
 
 import { Panel } from './Panel';
@@ -46,27 +46,38 @@ const future = { preserveSharedStateOnUnmount: true };
 export function App() {
   return (
     <div>
+
+      <InstantSearch
+          searchClient={searchClient}
+          indexName="Accelerators"
+          future={future}
+          routing={true}
+      >
+
+      <Configure hitsPerPage={25} />
+
       <header className="header">
         <h1 className="header-title">
-          {/* <img src={headerImage} className="logo" /> */}
+          Startups Resources (Funds, Accelerators, Studios etc)
+          <Stats />
         </h1>
-        <p className="header-subtitle">
-          Find Accelerators by 'Program', 'location', 'industry' or 'stage'.
-        </p>
         <div className="gh-btn">
           <GitHubButton href="https://github.com/d1b1/techstar-search" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star d1b1/techstar-search on GitHub">Star</GitHubButton>
         </div>
       </header>
 
       <div className="container">
-        <InstantSearch
-          searchClient={searchClient}
-          indexName="Accelerators"
-          future={future}
-        >
-          <Configure hitsPerPage={10} />
+        
+          
           <div className="search-panel">
             <div className="filters" >
+
+            <div className="filter-el">
+                <h4>
+                  Type:
+                </h4>
+                <RefinementList attribute="type" />
+              </div>
 
               <div className="filter-el">
                 <h4>
@@ -91,7 +102,7 @@ export function App() {
 
               <div className="filter-el">
                 <h4>
-                  City:
+                  State:
                 </h4>
                 <RefinementList searchable="true" searchablePlaceholder="Enter a state..." attribute="state" />
               </div>
@@ -122,8 +133,8 @@ export function App() {
             </div>
 
           </div>
-        </InstantSearch>
       </div>
+      </InstantSearch>
     </div>
   );
 }
@@ -154,10 +165,10 @@ function Hit({ hit }: HitProps) {
           <Highlight attribute="description" hit={hit} />
         </p>
         <p>
-          <b>Location:</b> <Highlight attribute="city" hit={hit} />, <Highlight attribute="state" hit={hit} /> <Highlight attribute="country" hit={hit} /><br/>
-          <b>Program Type:</b> <Highlight attribute="programType" hit={hit} /><br/>
-          <b>Type:</b> {hit['type']}, 
-          <b>Industry:</b> {hit['industry']}, 
+          <b>Location:</b> {hit.city}, {hit.state},{hit.country}<br/>
+          <b>Program Type:</b> {hit.programType || 'NA'}<br/>
+          <b>Type:</b> {hit['type']},&nbsp;
+          <b>Industry:</b> {hit['industry']},&nbsp;
           <b>Investment Stages:</b> {hit['stages']}
         </p>
       </div>
