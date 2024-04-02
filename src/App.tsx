@@ -48,31 +48,29 @@ export function App() {
     <div>
 
       <InstantSearch
-          searchClient={searchClient}
-          indexName="Accelerators"
-          future={future}
-          routing={true}
+        searchClient={searchClient}
+        indexName="Accelerators"
+        future={future}
+        routing={true}
       >
 
-      <Configure hitsPerPage={25} />
+        <Configure hitsPerPage={25} />
 
-      <header className="header">
-        <h1 className="header-title">
-          Startups Resources (Funds, Accelerators, Studios etc)
-          <Stats />
-        </h1>
-        <div className="gh-btn">
-          <GitHubButton href="https://github.com/d1b1/techstar-search" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star d1b1/techstar-search on GitHub">Star</GitHubButton>
-        </div>
-      </header>
+        <header className="header">
+          <h1 className="header-title">
+            Startups Resources (Funds, Accelerators, Studios etc)
+            <Stats />
+          </h1>
+          <div className="gh-btn">
+            <GitHubButton href="https://github.com/d1b1/techstar-search" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Star d1b1/techstar-search on GitHub">Star</GitHubButton>
+          </div>
+        </header>
 
-      <div className="container">
-        
-          
-          <div className="search-panel">
-            <div className="filters" >
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-3 d-none d-md-block d-lg-block">
 
-            <div className="filter-el">
+              <div className="filter-el">
                 <h4>
                   Type:
                 </h4>
@@ -122,7 +120,7 @@ export function App() {
               </div>
 
             </div>
-            <div className="search-panel__results">
+            <div className="col-md-9 p-4">
               <SearchBox placeholder="Enter an program name..." className="searchbox" />
 
               <Hits hitComponent={Hit} />
@@ -131,9 +129,8 @@ export function App() {
                 <Pagination />
               </div>
             </div>
-
           </div>
-      </div>
+        </div>
       </InstantSearch>
     </div>
   );
@@ -154,9 +151,6 @@ function ImageWithFallback({ src, alt, ...props }) {
 function Hit({ hit }: HitProps) {
   return (
     <article>
-      <a href={hit['webSite']} target="_blank">
-        <ImageWithFallback src={hit.logo} width="80" alt={hit.name} />
-      </a>
       <div className="element">
         <h1>
           <Highlight attribute="name" hit={hit} />
@@ -165,8 +159,8 @@ function Hit({ hit }: HitProps) {
           <Highlight attribute="description" hit={hit} />
         </p>
         <p>
-          <b>Location:</b> {hit.city}, {hit.state},{hit.country}<br/>
-          <b>Program Type:</b> {hit.programType || 'NA'}<br/>
+          <b>Location:</b> {hit.city}, {hit.state},{hit.country}<br />
+          <b>Program Type:</b> {hit.programType || 'NA'}<br />
           <b>Type:</b> {hit['type']},&nbsp;
           <b>Industry:</b> {hit['industry']},&nbsp;
           <b>Investment Stages:</b> {hit['stages']}
